@@ -1,0 +1,207 @@
+.header{
+    background-color: rgb(34, 33, 32);
+    height: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.header a{text-decoration: none; color: white;}
+
+.header button{
+    margin-top: 12px;
+    margin-left: 30px;
+    height: 34px;
+    width: 100px;
+    background-color: white;
+    color: blue;
+}
+
+.navi-btn{
+    height: 40px;
+    margin: 20px;
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+    
+}
+
+.search{
+    margin: 10px;
+    width: 550px;
+    height: 40px;
+    font-size: 25px;
+}
+
+.cart-btn{
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.images-container{
+    height: 92.9vh;
+    width: 100%;
+    background-color: rgb(47, 3, 122);
+    display: flex;
+    overflow: hidden;
+}
+
+.products-container{
+    height: 93vh;
+    width: 100%;
+
+
+}
+
+
+
+.products-list{
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 93.9vh;
+    overflow: scroll;
+}
+.products-list::-webkit-scrollbar {
+    display: none;
+}
+
+.category-container{
+    width: 300px;
+    height: 100%;
+    background-color:white;
+}
+
+.font{
+    font-size: 30px;
+     
+}
+
+.images-container img{
+    height: 100%;
+    width:100%;   
+}
+
+.loginpage{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0%;
+    display: flex;
+    background-color: rgb(0, 0, 0,0.6);
+    justify-content: center;
+    /* align-items: center; */
+    display:none;
+}
+
+.loginbox{
+    margin-top: 250px;
+    height: 50%;
+    width: 600px;
+    background-color:white;
+    border-radius: 3px;
+    text-align: center;
+}
+
+#cancelBtn{
+    margin-top: 250px;
+ 
+}
+
+.logintext{
+    color: rgb(114, 175, 255);
+}
+
+.logininput{
+    height: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 400px;
+
+}
+
+.login-buttons{
+    height:35px;
+    width: 60px;
+    background-color: rgb(114, 175, 255);
+}
+
+.SignUpbox{
+    margin-top: 250px;
+    height: 50%;
+    width: 600px;
+    background-color:white;
+    border-radius: 3px;
+    text-align: center;
+    display: none;
+}
+
+
+nav div div ul li{
+    margin-left :10px;
+    margin-right: 10px;
+}
+
+nav div div ul li:hover{
+    background-color:rgb(90, 89, 89);
+}
+
+.product-details{
+    overflow: hidden;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+    background-color: aqua;
+    height: 93.7vh;
+    width: 150vh;
+    margin: auto;
+    display: flex;
+     
+}
+
+
+
+#product-details-img-div{
+    background-color: aquamarine;
+    min-height: 580px;
+    max-height:580px;
+    min-width: 400px;
+    max-width: 400px;
+    margin: 20px 10px 29px 20px;
+    text-align: center;
+    
+}
+
+#product-details-img{
+    display: inline-block;
+    min-height: 500px;
+    max-height: 500px;
+    min-width: 400px;
+    max-width: 400px;
+   
+}
+
+
+.card-text{
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

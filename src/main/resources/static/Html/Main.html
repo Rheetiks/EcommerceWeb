@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/Css/Main.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+
+
+
+
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <nav class="navbar navbar-expand-lg bg-success">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+
+        <input class="form-control me-2" id="search-products" style="width:600px; margin-left: 300px;" type="search"
+          placeholder="Search For Products" aria-label="Search">
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/Html/Main.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="main-becomeseller-btn" href="/html/SellerLogin.html">Become a Seller</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onclick="displayProducts()" href="#">Browse products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="doSomething()">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link bi bi-cart" id="main-cart-btn" onclick="goToCart()" style="display: none;" href="#">Cart</a>
+          </li>
+        
+          <button type="button" style="margin: 0 5px 0 5px; display: none;" class="btn btn-primary" id="main-sellerproducts-btn" onclick="sellerProducts()">My products</button>
+          <button type="button"  style="margin: 0 5px 0 5px;" class="btn btn-primary" id="main-login-btn" onclick="displayLogin()">Login</button>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+
+
+
+  <div class="images-container">
+    <img class="main-images" src="/Images/smartphones.jpg" alt="" id="smartphones">
+    <img class="main-images" src="/Images/cloths.jpg" alt="" id="cloths">
+    <img class="main-images" src="/Images/bottles.jpg" alt="" id="bottles">
+    <img class="main-images" src="/Images/stationary.jpg" alt="" id="stationary">
+  </div>
+
+
+  <div class="products-container" style="overflow: scroll;    display: none;">
+    <div class="category-container">
+      <h4 class="display-6">Categories</h4>
+      <div class="list-group" id="main-products-category-container">
+        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+          All
+        </a>
+        <a href="#" value="sports" onclick="getProductsByCategory('sports','main-products-list','main-products-category-container')" class="list-group-item list-group-item-action">Sports</a>
+                <a href="#" value="books" onclick="getProductsByCategory('books','main-products-list','main-products-category-container')" class="list-group-item list-group-item-action">Books</a>
+                <a href="#" value="mobiles" onclick="getProductsByCategory('mobiles','main-products-list','main-products-category-container')" class="list-group-item list-group-item-action">Mobiles</a>
+                <a href="#" value="laptops" onclick="getProductsByCategory('laptops','main-products-list','main-products-category-container')" class="list-group-item list-group-item-action">Laptops</a>
+                <a href="#" value="cloths" onclick="getProductsByCategory('cloths','main-products-list','main-products-category-container')" class="list-group-item list-group-item-action ">Cloths</a>
+      </div>
+    </div>
+
+    <div class="products-list" id="main-products-list" >
+     
+
+      
+    </div>
+
+
+
+
+  </div>
+
+
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="/Javascript/Main.js"></script>
+<script>
+  let firstindex = 0;
+
+  setInterval(imgSlider, 1000);
+  function imgSlider() {
+    let images = document.querySelectorAll('.main-images');
+    for (let i = 0; i < images.length; i++) {
+      images[i].style.display = "none";
+    }
+    firstindex++;
+    if (firstindex > images.length) {
+      firstindex = 1;
+    }
+
+    images[firstindex - 1].style.display = "";
+    const myInterval = setInterval(imgSlider, 10000);
+
+    clearInterval(myInterval);
+
+  }
+
+  // function productDetails(){
+  //   window.location.href="/Html/ProductDetails.html";
+  // }
+
+  document.addEventListener("DOMContentLoaded", () =>{
+    if(getJWTTokenFromCookie("userCookie")!=null){
+      document.getElementById("main-login-btn").style.display="none";
+      document.getElementById("main-cart-btn").style.display="block";
+      document.getElementById("main-sellerproducts-btn").style.display="none";
+
+    }else if(getJWTTokenFromCookie("sellerCookie")!=null){
+      document.getElementById("main-cart-btn").style.display="none";
+      // document.getElementById("main-login-btn").style.display="none";
+      document.getElementById("main-becomeseller-btn").style.display="none";
+      document.getElementById("main-sellerproducts-btn").style.display="block";
+
+ 
+    }
+  })
+
+ 
+
+</script>
+
+</html>

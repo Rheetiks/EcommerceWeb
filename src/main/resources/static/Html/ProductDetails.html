@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+
+  <link rel="stylesheet" href="/Css/ProductDetails.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+
+  <nav class="navbar navbar-expand-lg bg-success">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+
+        <input class="form-control me-2" id="search-products" style="width:600px; margin-left: 300px;" type="search"
+          placeholder="Search For Products" aria-label="Search">
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/Html/Main.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/SellerLogin.html">Become a Seller</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onclick="browseProducts()" id="product-details-browseproducts"  href="#">Browse products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link bi bi-cart" id="product-details-cart" onclick="goToCart()" style="display: none;" href="#">Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="display: none;" id="product-details-orders"  href="#">My Orders</a>
+          </li>
+          <button type="button" style="margin: 0 5px 0 5px; display: none;" class="btn btn-primary" id="product-details-myproducts" onclick="sellerProducts()">My products</button>
+
+          <button type="button" class="btn btn-primary" onclick="displayLogin()" id="product-details-login" > Login</button>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container">
+    <div class="card">
+      <div class="container-fliud">
+        <div class="wrapper row">
+          <div class="preview col-md-6">
+
+            <div class="preview-pic tab-content" id="product-details-img">
+
+            </div>
+
+          </div>
+          <div class="details col-md-6">
+            <div class="details col-md-11" id="product-details-container">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <script src="/Javascript/Main.js"></script>
+
+  <script>
+    let product = {};
+    product.productId = localStorage.getItem('productId')
+    displayPostApi(product, "http://localhost:8088/ProductById").then(function display(val) {
+      console.log(val);
+    
+    document.getElementById("product-details-img").innerHTML =
+      `<div class="tab-pane active" id="pic-1"><img src="http://localhost:8088/ProductImages/${val.productUrl}" /></div>`;
+    document.getElementById("product-details-container").innerHTML =
+
+      `<h3 class="product-title">${val.productName}</h3>
+
+    <p class="product-description">${val.productDescription}</p>
+    <h4 class="price">current price: <span>${val.productAmount}</span></h4>
+    <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+    <h5 class="sizes">sizes:
+      <span class="size" data-toggle="tooltip" title="small">s</span>
+      <span class="size" data-toggle="tooltip" title="medium">m</span>
+      <span class="size" data-toggle="tooltip" title="large">l</span>
+      <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
+    </h5>
+    <h5 class="colors">colors:
+      <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+      <span class="color green"></span>
+      <span class="color blue"></span>
+    </h5>
+    <div class="action">
+      <button type="button" style="margin: 0 5px 0 5px;" class="btn btn-primary" id="main-login-btn"
+        onclick="addToCart(${val.productId})">Add to cart</button>
+    </div>`
+  })
+
+  document.addEventListener("DOMContentLoaded", () =>{
+    if(getJWTTokenFromCookie("userCookie")!=null){
+      document.getElementById("product-details-orders").style.display="block";
+      document.getElementById("product-details-myproducts").style.display="none";
+      document.getElementById("product-details-login").style.display="none";
+      document.getElementById("product-details-cart").style.display="block";  
+
+    }else if(getJWTTokenFromCookie("sellerCookie")!=null){
+      document.getElementById("product-details-orders").style.display="none";
+      document.getElementById("product-details-myproducts").style.display="block";
+      document.getElementById("product-details-login").style.display="block";
+      document.getElementById("product-details-cart").style.display="none";
+
+    }
+  })
+
+  </script>
+
+
+
+</body>
+
+</html>
